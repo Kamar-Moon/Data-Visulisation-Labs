@@ -4,19 +4,118 @@
 <head>
 	<meta charset="UTF-8"/>
 	<meta name="description"	content="Data Visualisation Exercise 1"/>
-	<meta name="keywords"		  content="HTML, CSS"/>
-	<meta name="author"			  content="Your name here"/>
+	<meta name="keywords"		  content="HTML, CSS, JavaScript"/>
+	<meta name="author"			  content="Kamar"/>
 
 	<title>Task 1.1 HTML and CSS Demo Page</title>
 	<!--Insert description of exercise  -->
+	<!--Review HTML, CSS, JavaScript-->
 
 	<style>
+		h1,h2,figcaption{
+			background-color: white;
+			background-clip: content-box;
+		}
+		
 
-		#ownership_table{
+		#graphic{
 			width:60%
 		}
 
+		/* Button styles */
+
+		#graph_elements{
+			text-align: center;
+		}
+		.button{
+			border-radius: 12px;
+			padding: 10px 24px;
+			transition-duration: 0.4s;
+		}
+
+		#y2019
+		{
+			background-color: white; 
+  			color: black; 
+  			border: 2px solid #04AA6D;
+		}
+		#y2019:hover{
+			background-color: #70AD47;
+			color: white;
+		}
+
+		#y2021
+		{
+			background-color: white; 
+  			color: black; 
+  			border: 2px solid #5B9BD5;
+		}
+		#y2021:hover{
+			background-color: #5B9BD5;
+			color: white;
+		}
+		
+		/* pet images styles*/
+		.pets{
+			width:10%
+			
+		}
+		.cat{ float: right}
+
+		/* Other styles */
+		body{
+			background-image: url('paw_bg.jpg');
+			background-attachment: fixed;
+  			background-size: cover;
+			background-blend-mode: overlay;
+		}
+
+		.info{
+			background-color: rgb(199, 199, 199);
+			margin:4px;
+			padding:10px;
+			font-size:120%;
+		}
+		
+
+		footer{
+			text-align: center;
+			padding:4px;
+			background-color: rgb(233, 175, 194);
+		}
+		
+
 	</style>
+
+	<script>
+		function changeGraph(option){
+			var image = document.getElementById("graphic");
+			var caption = document.getElementById("caption");
+
+			if(option === '2019' )
+			{
+				image.src = "2019_graph.png";
+				caption.textContent = "Fig 2. Pet Ownership in 2019";
+			}
+			else if(option === '2021')
+			{
+				image.src = "2021_graph.png";
+				caption.textContent = "Fig 3. Pet Ownership in 2021";
+			}
+			else if(option === 'both')
+			{
+				image.src = "both_graph.png";
+				caption.textContent = "Fig 4.Pet Ownership in 2019 and 2021";
+			}
+			else if(option === 'table')
+			{
+				image.src = "pet_ownership_in_australia_table.png";
+				caption.textContent = "Fig 1. Comparison of Pet Ownership in 2019 and 2021";
+			}
+		}
+
+
+	</script>
 
 </head>
 
@@ -25,28 +124,39 @@
 	<h1>Title of Article about Interesting Visualisation</h1>
 	<h2>By COS30045 Team & Kamar</h2>
 
-	<p>A report from Animal Medicines Australia (AMA) has found that many Australians took the opportunity to introduce a pet into 
-		their household during the pandemic. Their survey indicated that there was a significant increase in the percent of households
-		 taking in a new dog, fish or bird. Their research also indicated that pets had a number of positive influences on their lives such as:
-	</p>
+	<div class ="info">	
+		<p>A report from Animal Medicines Australia (AMA) has found that many Australians took the opportunity to introduce a pet into 
+			their household during the pandemic. Their survey indicated that there was a significant increase in the percent of households
+			taking in a new dog, fish or bird. Their research also indicated that pets had a number of positive influences on their lives such as:
+		</p>
 
-	<ul>
-		<li>Companionship</li>
-		<li>Better mental health</li>
-		<li>Joy and happiness</li>
-	</ul>
+		<ul>
+			<li>Companionship</li>
+			<li>Better mental health</li>
+			<li>Joy and happiness</li>
+		</ul>
+	</div>
 
-	<img class="pets"  scr="cat.jpg">
+	<img  id="dog" class="pets" src="dog.png">
+	<img  id="fish" class="pets" src="fish.jpg">
+	<img  id="bird" class="pets" src="bird.jpg">
+	<img  id="cat" class="pets" src="cat.jpg">
+	
 
-	<p>With the increase in pet ownership the AMA are encouraging policy makers to consider the needs of companion animals and their owners when considering rental, strata and body corporate regulations are well as accepting animals in public places and transport.</p>
+	<p class ="info">With the increase in pet ownership the AMA are encouraging policy makers to consider the needs of companion animals and their owners when considering rental, strata and body corporate regulations are well as accepting animals in public places and transport.</p>
 
-	<figure>	
-		<img id="ownership_table" src="pet_ownership_in_australia_table.png" >
-		<figcaption>Fig 1. Comparison of Pet Ownership in 2019 and 2021. Data Source: 
-			<a herf="https://animalmedicinesaustralia.org.au/wp-content/uploads/2021/08/AMAU005-PATP-Report21_v1.41_WEB.pdf"> Animal Medicines Australia Report </a> 
-		</figcaption>
-	</figure>
-
+	<div id="graph_elements" >
+		<button id="y2019" onclick="changeGraph('2019')">2019</button>	
+		<button id="y2021" onclick="changeGraph('2021')">2021</button> 
+		<button id="both" onclick="changeGraph('both')">Both</button>
+		<button id="table" onclick="changeGraph('table')">Back to Table</button>
+		<figure>	
+			<img id="graphic" src="pet_ownership_in_australia_table.png" >
+			<figcaption id="caption">Fig 1. Comparison of Pet Ownership in 2019 and 2021. Data Source: 
+				<a herf="https://animalmedicinesaustralia.org.au/wp-content/uploads/2021/08/AMAU005-PATP-Report21_v1.41_WEB.pdf"> Animal Medicines Australia Report </a> 
+			</figcaption>
+		</figure>
+	</div>
 	<footer>COS30045 Data Visualisation</footer>
 
 </body>
