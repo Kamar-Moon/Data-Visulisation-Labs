@@ -51,7 +51,11 @@
                 return d;
             })
             .classed("warning", function(d){return d >10; //add class "warning" if condition is met 
-        });
+        })
+            .text(function(d, i)){
+                return "i = " + 
+            }        
+        ;
             
 
 
