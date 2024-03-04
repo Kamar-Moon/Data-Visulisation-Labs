@@ -40,6 +40,8 @@
             /* annonymous function to get data from dataset
                 if-else if data is > 10 display warning otherwise display else.
              */
+
+             //code for cat video challenge
             .text(function(d){
                 if(d > 10){
                     return ("Warning: Joe watched " + d + " cat videos today")
@@ -51,7 +53,14 @@
             })
             .classed("warning", function(d) {
                 return d >10; //add the classs "warning" if the condition is met
-            })
+            }
+            )
+
+            //code to display data index and value
+            /*.text(function(d, i){
+                return "i = " + i + "d = " + d;
+            })*/
+
             
 
 
