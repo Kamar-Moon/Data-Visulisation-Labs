@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description"    content="Data Visualisation Exercise 2"/>
+    <meta name="keywords"         content="HTML, D3"/>
+    <meta name="author"           content="Kamar"/>
+    <title>Task 2.1 D3 Drawing with Data - Binding</title>
+    <!--Insert description of exercise  -->
+    <!--Intro to D3 Drawing with Data -->
+
+    <!--D3 Library v7 web link to ensure use of up to date library -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<style>
+    footer{
+    background-color: rgb(231, 160, 160);
+    background-clip: content-box;
+    text-align:center;
+    }
+    #task{
+        text-align: center;
+    }
+
+    .warning{
+        color:red;
+    }
+</style>
+
+<body>
+    <h1 id="task">Task 2.1 Intro to D3 Drawing with Data - Binding</h1>
+
+    <script>
+        var dataset = [14, 5, 26, 23, 9];
+
+        d3.select("body").selectAll("p")
+            .data(dataset)
+            .enter()
+            .append("p")
+            /* annonymous function to get data from dataset
+                if-else if data is > 10 display warning otherwise display else.
+             */
+            .text(function(d){
+                if(d > 10){
+                    return ("Warning: Joe watched " + d + " cat videos today")
+                }
+                else{
+                    return ("Joe watched " + d + " cat videos today")
+
+                }
+                return d;
+            })
+            .classed("warning", function(d){return d >10; //add class "warning" if condition is met 
+        });
+            
+
+
+    </script>
+
+<footer>COS30045 Data Visualisation Semester 1 2024</footer>
+
+</body>
+</html>
