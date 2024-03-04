@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description"    content="Data Visualisation Exercise 2"/>
+    <meta name="keywords"         content="HTML, D3"/>
+    <meta name="author"           content="Kamar"/>
+    <title>Task 2.2 D3 Drawing with Data - Bar Chart</title>
+    <!--Insert description of exercise  -->
+    <!--Intro to D3 Drawing with Data -->
+
+    <!--D3 Library v7 web link to ensure use of up to date library -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!--<script src="https://d3js.org/d3-scale.v3.min.js "></script> -->
+</head>
+
+<style>
+    footer{
+    background-color: rgb(231, 160, 160);
+    background-clip: content-box;
+    text-align:center;
+    }
+    #task{
+        text-align: center;
+    }
+
+    /* Styling for bars*/
+    .bar{
+        background-color: blueviolet;
+        stroke:black;
+        stroke-width: 2;
+    }
+    </style>
+
+<body>
+    <h1 id="task">Task 2.2 D3 Drawing with Data - Bar Chart</h1>
+    <script>
+
+        var w =500;
+        var h = 200;
+        var p = 1;
+
+        var dataset = [14, 5, 26, 23, 9, 19, 21]
+
+        var svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+
+        svg.selectAll("rect")
+            .data(dataset)
+            .enter()
+            .append("rect")
+            .attr("x",  function(d, i){
+                return i * (w / dataset.length);
+            })
+            .attr("y", function(d){
+                return h - (d * 4) // Adjust the y position to the bottom of the SVG minus the height of each bar
+            })
+            .attr("width", w / dataset.length - p ) // width of bars / 5 data points - padding
+            .attr("height", function(d){
+                return d * 4; //not proper way to scale will look at alt way in week 3
+            })
+            .classed("bar", true);            
+                 
+
+    </script>
+<footer>COS30045 Data Visualisation Semester 1 2024</footer>
+</body>
+</html>
