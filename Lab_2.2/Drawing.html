@@ -53,7 +53,8 @@
         var p = 4;
         margine = 20
 
-        var dataset = [14, 5, 26, 23, 9, 19, 21]
+        var dataset = [15, 25, 25, 8 , 20, 27, 28]
+        var weekday = ["Mon","Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
 
         var svg = d3.select("body")
                     .append("svg")
@@ -77,14 +78,17 @@
             })
             .classed("bar", true);            
           
-        //Add x-axis label
-        svg.append("text")
-            .attr("class", "axis-label")
-            .attr("x", w / 2)
-            .attr("y", h - 6)
-            .attr("text-anchor", "middle")
-            .text("Weekday")
-            .classed("axis-label", true);
+            //bar labels
+            svg.selectAll("text")
+                .data(weekday)
+                .enter()
+                .append("text")
+                .text(function(d) { return d; }) // Set the label text to the data value
+                .attr("x", function(d, i) { return i * (w / dataset.length) + (w / dataset.length - p) / 2; }) // Position label at the center of each bar
+                .attr("y", h - 5) // Adjust vertical position to place label just above the bars
+                .attr("text-anchor", "middle") // Center align the text horizontally
+                .attr("font-size", "12px") // Set the font size of the label
+                .attr("fill", "black"); // Set the color of the label
 
         // Add y-axis label
         svg.append("text")
