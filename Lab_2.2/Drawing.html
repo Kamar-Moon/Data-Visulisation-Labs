@@ -12,7 +12,6 @@
 
     <!--D3 Library v7 web link to ensure use of up to date library -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <!--<script src="https://d3js.org/d3-scale.v3.min.js "></script> -->
 </head>
 
 <style>
@@ -20,6 +19,9 @@
     background-color: rgb(231, 160, 160);
     background-clip: content-box;
     text-align:center;
+    position: absolute;
+    bottom: 0; /* Align footer to the bottom */
+    width: 100%; /* Ensure the footer spans the full width */
     }
     #task{
         text-align: center;
@@ -27,9 +29,18 @@
 
     /* Styling for bars*/
     .bar{
-        background-color: blueviolet;
+        fill: blueviolet;
         stroke:black;
         stroke-width: 2;
+    }
+
+    .axis-label {
+        font-size: 12px;
+    }
+
+    .graph-title {
+        font-size: 18px;
+        font-weight: bold;
     }
     </style>
 
@@ -37,9 +48,10 @@
     <h1 id="task">Task 2.2 D3 Drawing with Data - Bar Chart</h1>
     <script>
 
-        var w =500;
+        var w = 500;
         var h = 200;
-        var p = 1;
+        var p = 4;
+        margine = 20
 
         var dataset = [14, 5, 26, 23, 9, 19, 21]
 
@@ -48,22 +60,50 @@
                     .attr("width", w)
                     .attr("height", h);
 
+        //Add Bars
         svg.selectAll("rect")
             .data(dataset)
             .enter()
             .append("rect")
             .attr("x",  function(d, i){
-                return i * (w / dataset.length);
+                return i * (w / dataset.length) + 20;
             })
             .attr("y", function(d){
-                return h - (d * 4) // Adjust the y position to the bottom of the SVG minus the height of each bar
+                return h - (d * 4) - 20 // Adjust the y position to the bottom of the SVG minus the height of each bar
             })
             .attr("width", w / dataset.length - p ) // width of bars / 5 data points - padding
             .attr("height", function(d){
                 return d * 4; //not proper way to scale will look at alt way in week 3
             })
             .classed("bar", true);            
-                 
+          
+        //Add x-axis label
+        svg.append("text")
+            .attr("class", "axis-label")
+            .attr("x", w / 2)
+            .attr("y", h - 6)
+            .attr("text-anchor", "middle")
+            .text("Weekday")
+            .classed("axis-label", true);
+
+        // Add y-axis label
+        svg.append("text")
+            .attr("class", "axis-label")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -h / 2)
+            .attr("y", 15)
+            .attr("text-anchor", "middle")
+            .text("Energy %")
+            .classed("axis-label", true);
+
+        // Add graph title
+        svg.append("text")
+            .attr("class", "graph-title")
+            .attr("x", w / 2)
+            .attr("y", 20)
+            .attr("text-anchor", "middle")
+            .text("Energy Levels Throughout Week")
+            .classed("graph-title", true);   
 
     </script>
 <footer>COS30045 Data Visualisation Semester 1 2024</footer>
