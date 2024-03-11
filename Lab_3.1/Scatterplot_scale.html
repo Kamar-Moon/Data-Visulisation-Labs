@@ -48,20 +48,22 @@
                   [ 475,   44 ],
                   [ 25,    67 ],
                   [ 85,    21 ],
-                  [ 220,   88 ]
+                  [ 220,   88 ],
+                  [600,    150]
               ];
 
         var w = 500;
-        var h = 100;
+        var h = 300;
+        var p = 25; //padding
 
         var xScale = d3.scaleLinear() //scale for the x value
                         .domain([d3.min(dataset, function(d){//calculate min value
                             return d[0]; //first data point in array
                         }),
-                        d3.max(dateset, function(d){ //calculate max
+                        d3.max(dataset, function(d){ //calculate max
                             return d[0];
                         })])
-                        .range([0, w]); //w is width of svg canvas
+                        .range([p, w - p * 2]); //w is width of svg canvas
 
 
 
@@ -69,11 +71,15 @@
                         .domain([d3.min(dataset, function(d){//calculate min value
                             return d[1]; //first data point in array
                         }),
-                        d3.max(dateset, function(d){ //calculate max
+                        d3.max(dataset, function(d){ //calculate max
                             return d[1];
                         })])
-                        .range([0, h]); //h is height of svg canvas      
-                        
+                        .range([h - p, p]); //h is height of svg canvas      
+         
+        var rScale = d3.scaleLinear()
+                        .domain([0, d3.max(dataset, function(d){ return d[1]; })]) 
+                        .range([2, 5])               
+
         //SVG canvas                
         var svg = d3.select("body")
                     .append("svg")
@@ -92,8 +98,7 @@
                 return yScale(d[1]);
             })
             .attr("r", function(d){
-                return Math.sqrt(h - d[1]); // make circle size dynamic by using the y value d[1]. we need to calculate the radius r then set that
-                //make the top circles bigger use -h
+                return rScale(d[1]);
 
             })
             
