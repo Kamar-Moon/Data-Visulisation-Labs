@@ -6,6 +6,7 @@ function init(){
     var p = 4;
     var barPadding = 1;
 
+    //when running locally i have used gist, on mercury i just use the file name
     d3.csv("https://gist.githubusercontent.com/Kamar-Moon/c23196e30dc019d3059450e57f144840/raw/04d040e1c779ae00bf64e1f6f632304e4a936947/lab2.4_data").then(function(data){
         console.log(data);
         randomAges = data;
@@ -23,8 +24,8 @@ function init(){
             .data(randomAges)
             .enter()
             .append("rect")
-            .attr("x",  function(d, i){
-                return i * (w / randomAges.length);
+            .attr("x",  function(d, i){ //set x co , d is data associated with index i
+                return i * (w / randomAges.length); //multiply index i by width/number of data points and set x
             })
             .attr("y", function(d){
                 return h - (d.ages * 4) - 20 // Adjust the y position to the bottom of the SVG minus the height of each bar
