@@ -4,6 +4,7 @@ function init(){
         //initilize empty array, loop through 20 times choose 2 random numbers
         //each time add that pair to the dataset array
         //will produce new dataset everytime page is refreshed
+        //From Murray Chapter 8
         var dataset = [];
         var numDataPoints = 10;
         var xRange = Math.random() * 1000;
