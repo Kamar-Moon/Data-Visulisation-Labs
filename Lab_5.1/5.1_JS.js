@@ -3,7 +3,8 @@ function init(){
     var h = 200;
     margine = 20
 
-    var dataset = [15, 25, 25, 8 , 20, 27, 28]
+    var dataset = [15, 25, 24, 8 , 20, 27, 28, 6, 9, 10, 22, 
+        24, 13, 18, 19, 21, 32, 30, 36, 11, 33, 37, 32, 12, 17]
     
     
     //scale x axis
@@ -15,8 +16,7 @@ function init(){
     //Scale y axis - this needs to use linear scale
     var yScale = d3.scaleLinear() 
                 .domain([d3.min(dataset), d3.max(dataset)])
-                .range([h, 0]); //h is height of svg canvas 
-
+                .rangeRound([h, 0]); //avalible space is height of canvas to 0 
     //add svg canvas
     var svg = d3.select("body")
                 .append("svg")
@@ -36,32 +36,76 @@ function init(){
         })
         .attr("width", xScale.bandwidth() ) // width of bars / 5 data points - padding
         .attr("height", function(d){
-            return d * 4; //not proper way to scale will look at alt way in week 3
+            return d * 4;
         })
-        .classed("bar", true);            
-      
+        .attr("fill", function(d) { //dynamic fill for bars higher numbers = darker colour
+            return "rgb(0, 0, " + Math.round(d * 10) + ")" });
+    
+    // labels for bars        
+    svg.selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .text(function(d){ return d; })
+        .attr("x", function(d, i){ return xScale(i) + xScale.bandwidth() /2; })
+        .attr("y", function(d) { return h - yScale(d) + 14; })
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "11px")
+        .attr("fill", "white")
+        .attr("text-anchor", "middle");
 
-      var  dataset = [11, 12, 13, 14, 15, 16, 17];
+      
     // On button click update with new data
     d3.select("button")
     .on("click", function() {
 
+        var NumValues = dataset.length;
+        var maxValue = 25
+        dataset = [];
+
+        for (var i = 0; i < NumValues; i++){
+            var newNumber = Math.floor(Math.random()* maxValue); //Math.random generates random number between 0-1, multiply that by maxValue, round to nearest integer with .floor 
+            dataset.push(newNumber);
+        }
+
         //Update all rects
-        svg.selectAll("rect")
-            .data(dataset)
-            .join("rect")
-            .attr("x", function(d, i){
-                return xScale(i)
+    svg.selectAll("rect")
+        .data(dataset)
+        .join("rect")
+        .attr("x", function(d, i){
+             return xScale(i);
             })
-            .attr("y", function(d) {
-                
+        .attr("y", function(d) {
                 return h - yScale(d);
             })
             .attr("width", xScale.bandwidth())
-            .attr("height", function(d){
-                return yScale(d);
-            });
-    });
+        .attr("height", function(d){
+            return yScale(d);
+            })
+        .attr("fill", function(d) { //dynamic fill for bars higher numbers = darker colour
+            return "rgb(0, 0, " + Math.round(d * 10) + ")" });
+    
+    svg.selectAll("text")
+        .data(dataset)
+        .text(function(d) {
+            return d;
+            })
+            .attr("x", function(d, i) {
+            return xScale(i) + xScale.bandwidth() / 2;
+            })
+            .attr("y", function(d) {
+            return h - yScale(d) + 16;
+            })
+        .join("text");
+
+
+
+
+                         
+
+    })
+
+   
 
 
     
