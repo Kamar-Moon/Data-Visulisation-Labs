@@ -1,7 +1,7 @@
 function init(){
-    var w = 500;
-    var h = 200;
-    margine = 20
+    var w = 600;
+    var h = 250;
+   
 
     var dataset = [15, 25, 24, 8 , 20, 27, 28, 6, 9, 10, 22, 
         24, 13, 18, 19, 21, 32, 30, 36, 11, 33, 37, 32, 12, 17]
@@ -17,7 +17,8 @@ function init(){
     var yScale = d3.scaleLinear() 
                 .domain([d3.min(dataset), d3.max(dataset)])
                 .rangeRound([h, 0]); //avalible space is height of canvas to 0 
-    //add svg canvas
+    
+//add svg canvas
     var svg = d3.select("body")
                 .append("svg")
                 .attr("width", w)
@@ -48,7 +49,7 @@ function init(){
         .append("text")
         .text(function(d){ return d; })
         .attr("x", function(d, i){ return xScale(i) + xScale.bandwidth() /2; })
-        .attr("y", function(d) { return h - yScale(d) + 14; })
+        .attr("y", function(d) { return yScale(d); })
         .attr("font-family", "sans-serif")
         .attr("font-size", "11px")
         .attr("fill", "white")
@@ -60,7 +61,7 @@ function init(){
     .on("click", function() {
 
         var NumValues = dataset.length;
-        var maxValue = 25
+        var maxValue = 25;
         dataset = [];
 
         for (var i = 0; i < NumValues; i++){
@@ -72,7 +73,12 @@ function init(){
     svg.selectAll("rect")
         .data(dataset)
         .join("rect")
-        .transition() //new transition line
+        .transition() //<----new transition line
+        .delay(function(d, i){
+            return i * 100;
+        })
+        .duration(2000)
+        .ease(d3.easeElasticOut)
         .attr("x", function(d, i){
              return xScale(i);
             })
@@ -89,16 +95,22 @@ function init(){
     //Update labels
     svg.selectAll("text")
         .data(dataset)
+        .join("text")
+        .transition() //<----new transition line
+        .delay(function(d, i){
+            return i * 100;
+        })
+        .duration(2000)
+        .ease(d3.easeElasticOut)
         .text(function(d) {
             return d;
             })
             .attr("x", function(d, i) {
             return xScale(i) + xScale.bandwidth() / 2;
             })
-            .attr("y", function(d) {
-            return h - yScale(d) + 16;
-            })
-        .join("text");
+            .attr("y", function(d) {return h - yScale(d) + 16;})
+        
+       
 
 
 
