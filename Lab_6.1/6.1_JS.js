@@ -110,6 +110,8 @@ function init() {
         var maxValue = 25; // the largest number that can be added
         var newNumber = Math.floor(Math.random() * maxValue); // Generate a new random number
         dataset.push(newNumber); // Add the new number to the dataset
+        
+        console.log(dataset);
 
         xScale.domain(d3.range(dataset.length)); // Update xScale domain
 
