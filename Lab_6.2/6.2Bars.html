@@ -5,13 +5,13 @@
     <meta name="description"    content="Data Visualisation Exercise 2"/>
     <meta name="keywords"         content="HTML, D3"/>
     <meta name="author"           content="Kamar"/>
-    <title>Task 6.1 D3 Interactivity - Mouse Over Effects</title>
+    <title>Task 6.2 D3 Interactivity - Sort</title>
     <!--Insert description of exercise  -->
     <!--Intro to D3 Drawing with Data -->
 
     <!--D3 Library v7 web link to ensure use of up to date library -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="6.1_JS.js"></script>
+    <script src="6.2_JS.js"></script>
 </head>
 
 <style>
@@ -39,7 +39,7 @@
         padding-bottom:50px;
     }
     #add {
-        background-color: #04AA6D; /* Green */
+        background-color: #04AA6D; 
         border: none;
         color: white;
         padding: 15px 32px;
@@ -49,7 +49,27 @@
         font-size: 16px;
     }
     #remove {
-        background-color: #bd1414; /* Green */
+        background-color: #bd1414; 
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+    #sortAscending{
+        background-color: #743dda; 
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+    #sortDescending{
+        background-color: #da9b3d; 
         border: none;
         color: white;
         padding: 15px 32px;
@@ -64,10 +84,12 @@
     </style>
 
 <body>
-    <h1 id="task">Task 6.1 D3 Interactivity - Mouse Over Effects</h1>
+    <h1 id="task">Task 6.2 D3 Interactivity - Sort</h1>
     <div>
         <button id ="add">Add</button>
         <button id ="remove">Remove</button>
+        <button id ="sortAscending">Sort Ascending</button>
+        <button id ="sortDescending">Sort Descending</button>
     </div>
     
 <footer>COS30045 Data Visualisation Semester 1 2024</footer>
