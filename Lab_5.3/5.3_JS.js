@@ -17,7 +17,7 @@ function init() {
     // Scale y axis - this needs to use linear scale
     var yScale = d3.scaleLinear() 
                     .domain([0, d3.max(dataset)])
-                    .rangeRound([h, 0]); // Available space is height of canvas to 0
+                    .range([0, h]); // Available space is 0 to hieght of canvas // CHANGED before it was [h, 0]
 
     // Add svg canvas
     var svg = d3.select("body")
@@ -64,42 +64,48 @@ function init() {
         .attr("fill", "white")
         .attr("text-anchor", "middle");
 
-    // Regular Update code
+    // Add Button Code
     d3.select("#add")
     .on("click", function() {
         var maxValue = 25; // the largest number that can be added
         var newNumber = Math.floor(Math.random() * maxValue); // Generate a new random number
         dataset.push(newNumber); // Add the new number to the dataset
 
-        xScale.domain(d3.range(dataset.length)); // Update xScale domain
+        // Print dataset to console
+        console.log("Updated dataset:", dataset);
+
+        xScale.domain(d3.range(dataset.length)); // Update xScale domain given new dataset length
+ 
+        yScale.domain([0, d3.max(dataset)]); // Update yScale domain given the new max value in dataset  // NEW ADDED CODE
 
         // Update all rects
-        var bars = svg.selectAll("rect")
-            .data(dataset);
+        var bars = svg.selectAll("rect") // re-bind data to existing bars, return 'update' selection
+            .data(dataset);              //bars is now the update selection
 
         var labels = svg.selectAll("text")
             .data(dataset);    
 
-        bars.enter() //add extra new elements if required
+        bars.enter() //add new elements if required
             .append("rect") //create new rectangle
             .attr("x", w)
-            .attr("y", function(d) {
-                return h - yScale(d);
-            })
+            .attr("y", function(d) {return h - yScale(d);})
             .merge(bars)
-            .attr("x", function(d, i){ //update x value
-                return xScale(i);
-            })   
-            .attr("y", function(d){
-                return h - yScale(d);
-            }) 
+            .attr("x", function(d, i){ return xScale(i); })   
+            .attr("y", function(d){return h - yScale(d);}) 
             .attr("width", xScale.bandwidth()) //update width value
-            .attr("height", function(d) {
-                return yScale(d);
-            })
+            .attr("height", function(d) { return yScale(d);})
             .attr("fill", function(d) { // Dynamic fill for bars lower number = darker colour
                 return "rgb(0, 0, " + Math.round(d * 10) + ")";
-            });
+            })
+
+            // NEW added code after feedback and research
+            .merge(bars) // merges the enter selection with updated selection
+            .transition()
+            .duration(500)
+            .attr("x", function(d, i){ return xScale(i);})
+            .attr("y", function(d){ return h - yScale(d);})
+            .attr("width", function(d){ return xScale.bandwidth();})
+            .attr("height", function(d) { return yScale(d); })
 
         // Update labels
         labels.enter()
@@ -123,32 +129,37 @@ function init() {
             .attr("text-anchor", "middle");
     });
 
+    // Remove Button Code
     d3.select("#remove")
         .on("click", function(){
 
-        xScale.domain(d3.range(dataset.length)); // Update xScale domain
-
-        // Update all rects
-        var bars = svg.selectAll("rect")
-        .data(dataset);
-
-        var labels = svg.selectAll("text")
-            .data(dataset); 
-
             dataset.shift();
+           
+
+            xScale.domain(d3.range(dataset.length)); // Update xScale domain given new length of dataset
+            yScale.domain([0, d3.max(dataset)]); //  Update yScale domain given new max value
+
+            // Update all rects
+            var bars = svg.selectAll("rect")
+            .data(dataset);
+
+            var labels = svg.selectAll("text")
+                            .data(dataset); 
 
             bars.exit()
                 .transition()
                 .duration(500)
                 .attr("x", w)
                 .remove();
+            // Print dataset to console
+            console.log("Updated dataset:", dataset);
 
-            labels.exit()
-                .transition()
-                .duration(500)
-                .attr("x", w)
-                .remove()
+                labels.exit()
+                    .transition()
+                    .duration(500)
+                    .attr("x", w)
+                    .remove()
 
-    })
+        })
 }
 window.onload = init;
