@@ -133,11 +133,11 @@ function init() {
     d3.select("#remove")
         .on("click", function(){
 
-            dataset.shift();
+            dataset.shift(); // UPDATE moved to top of block
            
 
             xScale.domain(d3.range(dataset.length)); // Update xScale domain given new length of dataset
-            yScale.domain([0, d3.max(dataset)]); //  Update yScale domain given new max value
+            yScale.domain([0, d3.max(dataset)]); //  Update yScale domain given new max value //NEW CODE
 
             // Update all rects
             var bars = svg.selectAll("rect")
@@ -152,7 +152,7 @@ function init() {
                 .attr("x", w)
                 .remove();
             // Print dataset to console
-            console.log("Updated dataset:", dataset);
+            console.log("Updated dataset:", dataset);  //NEW CODE for debugging
 
                 labels.exit()
                     .transition()
