@@ -80,7 +80,7 @@ function init() {
 
         // -----> code for X axis ticks (little lines with numbers) <-----  
         svg.append("g")
-        .attr("transform", "translate(0, "+ (400) + ")") //move xAxis to height of svg. 0 horizontal
+        .attr("transform", "translate(0, "+ (400) + ")") //move xAxis to height of svg. 0 horizontal I had to hardcode the height
         .call(xAxis);  
         
         
