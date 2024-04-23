@@ -23,7 +23,6 @@
     width: 100%; /* Ensure the footer spans the full width */
     }
 
-
     .axis-label {
         font-size: 12px;
     }
@@ -31,17 +30,28 @@
     .graph-title {
         font-size: 18px;
         font-weight: bold;
+        fill:rgb(43, 61, 226);
     }
-    .line{
+    .area{
         fill: none;
         stroke: slategrey;
         stroke-width: 0.5;
 
     }
+    .halfMillText{
+        fill:red;  /*fill to style text in d3 not color! */
+        font-size: 14px;
+    }
+    .area-fill {
+    fill: steelblue; /* Set the fill color */
+    fill-opacity: 0.3; /* Set the opacity for the fill */
+    }
+
     </style>
 
 <body>
     <h1 id="task">Task 7.1 D3 Line and Area Charts</h1>
+    <br>
    
 <footer>COS30045 Data Visualisation Semester 1 2024</footer>
 </body>
