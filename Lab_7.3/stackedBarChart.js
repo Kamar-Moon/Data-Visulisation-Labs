@@ -17,7 +17,7 @@ function init(){
                 .attr("height", h);
 
     // Colour scheme
-    var color = d3.scaleOrdinal(d3.schemeCategory10);
+    var color = d3.scaleOrdinal(d3.schemePastel1);
 
     // Set up Stack method
     var stack = d3.stack()
@@ -52,7 +52,7 @@ function init(){
                       .data(function(d) {return d;})
                       .enter()
                       .append("rect")
-                      .attr("x", function(d, i) { return xScale(i % dataset.length); }) // Corrected x position
+                      .attr("x", function(d, i) { return xScale(i % dataset.length); }) // positioned based on index of series not index of data within each series
                       .attr("y", function(d) { return yScale(d[1]); })
                       .attr("height", function(d) { return yScale(d[0]) - yScale(d[1]); })
                       .attr("width", xScale.bandwidth());
