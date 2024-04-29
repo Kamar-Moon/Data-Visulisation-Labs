@@ -58,6 +58,8 @@ function init(){
             var dataLGA = processedData[i].LGA;
             var dataValue = processedData[i].value;
 
+            console.log("DataLGA " + dataLGA + " DataValue " + dataValue);
+
             for (var j = 0; j < json.features.length; j++) {
                 var jsonLGA = json.features[j].properties.LGA_name;
                 if (dataLGA === jsonLGA) {
