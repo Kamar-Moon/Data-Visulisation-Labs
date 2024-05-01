@@ -18,25 +18,11 @@ function init(){
                 .attr("fill", "grey");
 
     // Colour Scheme
-    var colourScheme = ["#8856a7", "#8c96c6", "#b3cde3"]
     var colourScale = d3.scaleQuantize()
-                .range(colourScheme)
+                .range(["rgb(117,107,177)", "rgb(188,189,220)", "rgb(239,237,245)"])
 
     // Read in  LGA Unemployment CSV file
     d3.csv("VIC_LGA_unemployment.csv").then(function(data){
-
-        // Process the data // NOTE for learning i did not need to use parseInt because the values in file are already in numeric format, using ParseInt caused NaN error
-        var processedData = data.map(function(d) {
-            var dataLGA = d.LGA;
-            var dataValue = +d.unemployed; // Convert to numeric value using unary plus operator
-            return {
-                LGA: dataLGA,
-                value: dataValue
-            };
-        });
-
-        // Log processed data to console for verification
-        console.log(processedData);
 
         //set the colour domain
         colourScale.domain([
@@ -44,26 +30,31 @@ function init(){
             d3.max(data, function(d) {return d.value; })
         ]);
 
+        
         // Load and process GeoJSON file data
         d3.json("LGA_VIC.json").then(function(json){
 
-            // Log the parsed data values
-            /*data.forEach(function(d) {
-                console.log("Parsed value for " + d.LGA + ": " + d.value);
-            });*/
-
+            
             // Merge the data in the csv and JSON files
             //Loop through once for each csv data value
-            for (var i = 0; i < processedData.length; i++) {
-            var dataLGA = processedData[i].LGA;
-            var dataValue = processedData[i].value;
+            for (var i = 0; i < data.length; i++) {
 
-            console.log("DataLGA " + dataLGA + " DataValue " + dataValue);
+            var dataLGA = data[i].LGA;
 
+            var dataValue = data[i].unemployed;
+
+            //console.log("DataLGA " + dataLGA + " DataValue " + dataValue);
+
+            //find corrosponding LGA inside the GeoJSON file
             for (var j = 0; j < json.features.length; j++) {
+
                 var jsonLGA = json.features[j].properties.LGA_name;
-                if (dataLGA === jsonLGA) {
+
+                if (dataLGA == jsonLGA) {
+
                     json.features[j].properties.value = dataValue;
+                    console.log("Value being in JSON properties " + json.features[j].properties.value)
+
                     break;
                 }
             }}
@@ -77,6 +68,7 @@ function init(){
 
                     //get data value
                     var value = d.properties.value;
+                    console.log( "value being returned from jason " + value)
                     if (value){
                         //if the value exists...
                         return colourScale(value); 
@@ -87,8 +79,7 @@ function init(){
                     }
                 })
         });
-
-        
-    })   
+    });
+  
 }
 window.onload = init;
